@@ -786,9 +786,69 @@
     }
 
     /* ═══════════════════════════════════════════════════════════════════════════════ */
+    /* WHATSAPP FLOAT BUTTON */
+    /* ═══════════════════════════════════════════════════════════════════════════════ */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #25d366, #20ba5e);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+      transition: all 0.3s ease, background 0.6s ease;
+      z-index: 99;
+      text-decoration: none;
+      border: none;
+    }
+
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+      bottom: 35px;
+    }
+
+    .whatsapp-float:active {
+      transform: scale(0.95);
+    }
+
+    .whatsapp-float.futbol {
+      background: linear-gradient(135deg, #25d366, #20ba5e);
+      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+    }
+
+    .whatsapp-float.basket {
+      background: linear-gradient(135deg, #1E90FF, #0066FF);
+      box-shadow: 0 4px 20px rgba(30, 144, 255, 0.4);
+      color: white;
+    }
+
+    .whatsapp-float.tenis {
+      background: linear-gradient(135deg, #FF8C00, #FF6D00);
+      box-shadow: 0 4px 20px rgba(255, 140, 0, 0.4);
+      color: white;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════════════ */
     /* RESPONSIVE */
     /* ═══════════════════════════════════════════════════════════════════════════════ */
     @media (max-width: 768px) {
+      .whatsapp-float {
+        bottom: 20px;
+        right: 20px;
+        width: 55px;
+        height: 55px;
+        font-size: 24px;
+      }
+
+      .whatsapp-float:hover {
+        bottom: 23px;
+      }
       nav {
         padding: 16px 20px;
       }
@@ -1038,6 +1098,11 @@
     <p style="color:var(--fire);font-size:0.82rem">Hecho con ❤️ en Bolivia</p>
   </footer>
 
+  <!-- WhatsApp Float Button -->
+  <a href="https://wa.me/59169347415?text=Hola%20MatchUp%2C%20tengo%20una%20pregunta%20sobre%20el%20beta" target="_blank" class="whatsapp-float futbol" id="sportFloat" title="Contáctanos por WhatsApp">
+    ⚽
+  </a>
+
   <script>
     // REEMPLAZA ESTA URL CON LA DE TU GOOGLE APPS SCRIPT
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwIUkhc0bSDpkotSrJVoL8d3L-GpI6yrmqRmmjqq9CdhRVYB77hZeMFMK43Gr5ifKMz2g/exec';
@@ -1047,6 +1112,22 @@
     const tickerElement = document.getElementById('ticker');
     const tickerHTML = tickerItems.map(item => `<span>${item}</span>`).join('');
     tickerElement.innerHTML = tickerHTML + tickerHTML;
+
+    // Sports Float Button rotation
+    const sportFloat = document.getElementById('sportFloat');
+    const sports = [
+      { emoji: '⚽', name: 'futbol', class: 'futbol' },
+      { emoji: '🏀', name: 'basket', class: 'basket' },
+      { emoji: '🎾', name: 'tenis', class: 'tenis' }
+    ];
+    let sportIndex = 0;
+
+    setInterval(() => {
+      sportFloat.classList.remove(sports[sportIndex].class);
+      sportIndex = (sportIndex + 1) % sports.length;
+      sportFloat.textContent = sports[sportIndex].emoji;
+      sportFloat.classList.add(sports[sportIndex].class);
+    }, 3000);
 
     // Scroll reveal
     const reveals = document.querySelectorAll('.reveal');
